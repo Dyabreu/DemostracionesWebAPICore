@@ -108,7 +108,7 @@ namespace WebApiPubs.Controllers
         {
             List<Store> stores = (from s in context.Stores
                                   where s.City==city
-                                  where s.State==state
+                                  && s.State==state
                                   select s).ToList();
             return stores;
         }
