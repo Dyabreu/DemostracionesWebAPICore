@@ -24,17 +24,17 @@ namespace WebApiPubs.Controllers
         //Traer todos
 
         [HttpGet]
-        public ActionResult<IEnumerable<Publishers>> Get()
+        public ActionResult<IEnumerable<Publisher>> Get()
         {
-            return context.Publisher.ToList();
+            return context.Publishers.ToList();
         }
 
 
         //Traer 1 por Id
         [HttpGet("{id}")]
-        public ActionResult<Publishers> GetbyId(string id)
+        public ActionResult<Publisher> GetbyId(string id)
         {
-            Publishers publisher = (from p in context.Publisher
+            Publisher publisher = (from p in context.Publishers
                                     where p.PubId == id
                                     select p).SingleOrDefault();
             return publisher;
@@ -43,20 +43,20 @@ namespace WebApiPubs.Controllers
         //Insertar
 
         [HttpPost]
-        public ActionResult Post(Publishers publisher)
+        public ActionResult Post(Publisher publisher)
         {
             if (!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
             }
-            context.Publisher.Add(publisher);
+            context.Publishers.Add(publisher);
             context.SaveChanges();
             return Ok();
         }
 
         //Modificar
         [HttpPut("{id}")]
-        public ActionResult Put(string id, [FromBody] Publishers publisher)
+        public ActionResult Put(string id, [FromBody] Publisher publisher)
         {
             if (id != publisher.PubId)
             {
@@ -70,16 +70,16 @@ namespace WebApiPubs.Controllers
 
         //DELETE
         [HttpDelete("{id}")]
-        public ActionResult<Publishers> Delete(string id)
+        public ActionResult<Publisher> Delete(string id)
         {
-            var habitacion = (from h in context.Publisher
+            var habitacion = (from h in context.Publishers
                               where h.PubId == id
                               select h).SingleOrDefault();
             if (habitacion == null)
             {
                 return NotFound();
             }
-            context.Publisher.Remove(habitacion);
+            context.Publishers.Remove(habitacion);
             context.SaveChanges();
             return habitacion;
         }
